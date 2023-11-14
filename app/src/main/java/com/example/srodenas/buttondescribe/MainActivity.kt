@@ -38,6 +38,9 @@ lateinit, podemos recurrir a verificar si se ha inicializado de la forma anterio
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var textToSpeech: TextToSpeech  //descriptor de voz
+    private val TOUCH_MAX_TIME = 500 // en milisegundos
+    private var touchLastTime: Long = 0
+    private var touchNumber = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,13 +63,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEvent() {
         binding.btnExample.setOnClickListener{
-            val textButton = binding.btnExample.text.toString()
-            speakMeDescription("Boton: $textButton")
-        }
+
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - touchLastTime < TOUCH_MAX_TIME){
+                touchNumber=0
+                executorDoubleTouch()
+                // println("Ejecuto acción")
+            }
+            else{
+                touchNumber++
+                // println("He pulsado 1 vez")
+                //Describimos el botón, 1 sóla pulsación
+                speakMeDescription("Describo el botón")
+            }
+
+
+            // val textButton = binding.btnExample.text.toString()
+
+            touchLastTime = currentTime
+            if (touchNumber == 2) {
+                println("número de pulsaciones de dos e inicializo")
+                touchNumber = 0
+            }
+
+        }  //fin listener
     }
 
     private fun speakMeDescription(s: String) {
         textToSpeech.speak(s, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+
+    private fun executorDoubleTouch() {
+        speakMeDescription("Ejecuto la accion")
+        // Toast.makeText(this,"doble pulsacion-> Ejecuto la acción",Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
