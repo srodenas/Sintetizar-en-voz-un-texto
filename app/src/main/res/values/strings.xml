@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ButtonDescribe</string>
+    <string name="chiste">   Esto era uno, que era tan tonto, tan tonto, tan tonto, que echó una carrera
+    el sólo y quedó segundo</string>
+    <string name="describe">Este ejemplo, te muestra un botón donde escuchar un chiste</string>
 </resources>
