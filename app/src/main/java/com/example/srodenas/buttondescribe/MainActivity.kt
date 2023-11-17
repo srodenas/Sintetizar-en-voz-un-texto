@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE  //ocultamos el progress
                 val description = getString(R.string.describe).toString()
                 speakMeDescription(description)  //que nos comente de qué va esto...
-                Thread.sleep(2000)
+                Thread.sleep(4000)
                 Log.i(MYTAG,"Se ejecuta correctamente el hilo")
                 binding.btnExample.visibility = View.VISIBLE
 
@@ -86,14 +86,18 @@ class MainActivity : AppCompatActivity() {
             if(it != TextToSpeech.ERROR){
                 textToSpeech.language = Locale.getDefault()
                // textToSpeech.setSpeechRate(1.0f)
-                println("Sin problemas en la configuración TextToSpeech")
+                Log.i(MYTAG,"Sin problemas en la configuración TextToSpeech")
             }else{
-                println("Error en la configuración TextToSpeech")
+                Log.i(MYTAG,"Error en la configuración TextToSpeech")
             }
         })
     }
 
-
+/*
+Como he dicho esta mañana, System.currentTimeMillis() devuelve el tiempo actual
+en milisegundos. Por cada click el touchLastTime se vuelve a actualizar, para hacer
+la diferencia de tiempos y comprobar si es menor de 500 msg.
+ */
     private fun initEvent() {
         val chiste = resources.getString(R.string.chiste)
         binding.btnExample.setOnClickListener{
@@ -123,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     //Habla
     private fun speakMeDescription(s: String) {
-        println("Intenta hablar")
+        Log.i(MYTAG,"Intenta hablar")
         textToSpeech.speak(s, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
