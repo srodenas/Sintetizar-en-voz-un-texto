@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE  //ocultamos el progress
                 val description = getString(R.string.describe).toString()
                 speakMeDescription(description)  //que nos comente de qué va esto...
-                Thread.sleep(4000)
                 Log.i(MYTAG,"Se ejecuta correctamente el hilo")
                 binding.btnExample.visibility = View.VISIBLE
 
